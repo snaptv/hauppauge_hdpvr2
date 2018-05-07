@@ -2026,30 +2026,30 @@ HapiErrCode HAPI_BoardBootup(HAPIHandle hChip, HAPI_BOOT_CONFIG *config)
 		return HAPI_FAIL;
 	}
 
-	if(UtilThreadStart(&handle->cmdThread, cmdThreadFunc, handle ) != DX_SUCCESS)
+	if(UtilThreadStart(&handle->cmdThread, cmdThreadFunc, handle, "HAPI-cmd" ) != DX_SUCCESS)
 		return HAPI_FAIL;
 
-    if(UtilThreadStart(&handle->mainThread, mainThreadFunc, handle ) != DX_SUCCESS)
+	if(UtilThreadStart(&handle->mainThread, mainThreadFunc, handle, "HAPI-main" ) != DX_SUCCESS)
 		return HAPI_FAIL;
 
-    if(UtilThreadStart(&handle->callbackThread, callbackThreadFunc, handle ) != DX_SUCCESS)
+	if(UtilThreadStart(&handle->callbackThread, callbackThreadFunc, handle, "HAPI-callback" ) != DX_SUCCESS)
 		return HAPI_FAIL;
 		
 #ifndef AV_ASI
  #ifndef HAUPPAUGE
-	if(UtilThreadStart(&handle->dataThread, dataThreadFunc,handle ) != DX_SUCCESS)
+	if(UtilThreadStart(&handle->dataThread, dataThreadFunc,handle, "HAPI-data" ) != DX_SUCCESS)
 		return HAPI_FAIL;
  #else
 	//FGR - why have two threads using the same underlying USB interface
 	if(handle->cmdBus != handle->dataBus)
 	{
-		if(UtilThreadStart(&handle->dataThread, dataThreadFunc,handle ) != DX_SUCCESS)
+	  if(UtilThreadStart(&handle->dataThread, dataThreadFunc,handle, "HAPI-data" ) != DX_SUCCESS)
 			return HAPI_FAIL;
 	}
  #endif
 
  #ifdef USE_WRITE_THREAD
-	if(UtilThreadStart(&handle->writeThread, writeThreadFunc, handle ) != DX_SUCCESS)
+	if(UtilThreadStart(&handle->writeThread, writeThreadFunc, handle, "HAPI-write" ) != DX_SUCCESS)
 		return HAPI_FAIL;
  #endif
 #endif

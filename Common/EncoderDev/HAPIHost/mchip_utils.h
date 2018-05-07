@@ -109,10 +109,11 @@ void UtildxErrCodeToString(dxErrCode err, int max, char *pString);
  * 
  * input:       pFunc - func to start
  *              pData - data to pass to the function
+ *              pName - name of thread
  *
  * output:      phThread - handle to the thread
  *****************************************************************/
-dxErrCode UtilThreadStart(DX_THREAD_HANDLE *phThread, DX_UTIL_THREAD_FUNC pFunc, void *pData);
+dxErrCode UtilThreadStart(DX_THREAD_HANDLE *phThread, DX_UTIL_THREAD_FUNC pFunc, void *pData, const char *pName);
 
 /*****************************************************************
  * Function:    UtilThreadWait

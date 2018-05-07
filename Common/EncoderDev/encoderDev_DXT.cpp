@@ -6,10 +6,11 @@
 #include "CHapi.h"
 #include "Hapi_extra.h"
 
+#include <string.h>
 #include <math.h>
 
 encoderDev_DXT_t::~encoderDev_DXT_t(){
-	wrapLogDebug("encoderDev_DXT_t::~encoderDev_DXT_t()");
+	wrapLogInfo("encoderDev_DXT_t::~encoderDev_DXT_t()");
 	USBBootMChip_t *mchip = (USBBootMChip_t*)m_mchip;
 	CHapi *hapi = (CHapi*)m_hapi;
 
@@ -20,7 +21,7 @@ encoderDev_DXT_t::~encoderDev_DXT_t(){
 }
 
 bool encoderDev_DXT_t::init() {
-	wrapLogDebug("encoderDev_DXT_t::init()");
+	wrapLogInfo("encoderDev_DXT_t::init()");
 	m_mchip = (void*)new USBBootMChip_t(m_fx2);
 	m_hapi = (void*)new CHapi((USBBootMChip_t*)m_mchip);
 
@@ -179,14 +180,14 @@ bool encoderDev_DXT_t::setHDMIAR(float aspectRatio) {
 }
 
 bool encoderDev_DXT_t::startCapture() {
-	wrapLogDebug("encoderDev_DXT_t::startCapture()");
+	wrapLogInfo("encoderDev_DXT_t::startCapture()");
 	CHapi *hapi = (CHapi*)m_hapi;
 	if(!hapi->HapiStart()) return false;
 	return true;
 }
 
 bool encoderDev_DXT_t::stopCapture() {
-	wrapLogDebug("encoderDev_DXT_t::stopCapture()");
+	wrapLogInfo("encoderDev_DXT_t::stopCapture()");
 	CHapi *hapi = (CHapi*)m_hapi;
 	if(!hapi->HapiStop()) return false;
 	return true;

@@ -163,8 +163,8 @@ void UtildxErrCodeToString(dxErrCode err, int max, char *pString){
 /*****************************************************************
  * Function:    UtilThreadStart
  *****************************************************************/
-dxErrCode UtilThreadStart(DX_THREAD_HANDLE *phThread, DX_UTIL_THREAD_FUNC pFunc, void *pData){
-	int err = wrapThreadStart(phThread, pFunc, pData);
+dxErrCode UtilThreadStart(DX_THREAD_HANDLE *phThread, DX_UTIL_THREAD_FUNC pFunc, void *pData, const char *pName){
+        int err = wrapThreadStart(phThread, pFunc, pData, pName);
 	if(err != WRAPOS_OK) {
 		return DX_ERR_UNKNOWN;
 	}
