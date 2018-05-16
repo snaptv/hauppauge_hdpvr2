@@ -106,7 +106,7 @@ UsbReadWriteBulk(DWORD fRead, void* pBuffer,
 	} else if(ret == USBWRAP_ERROR_TIMEOUT) {
 		rst = 2;
 		if(dwTimeout < 1500) {
-			DbgLogInfo(("UsbReadWriteBulk() TIMEOUT(%d) (recovery)!\n", dwTimeout));
+			DbgLogError(("UsbReadWriteBulk() TIMEOUT(%d) (recovery)!\n", dwTimeout));
 			statusErr = 0;
 			statusCnt = 0;
 		} else {

@@ -14,7 +14,6 @@
 *
 \******************************************************************* ---*/ 
 
-#include <string.h>
 #include "CHapi.h"
 
 #ifdef OLD_DRIVER
@@ -919,7 +918,7 @@ void CHapi::HapiAPIInit()
 				if(dwDXT_BKV_config >= BkvCount){
 					dwDXT_BKV_config = 0;
 				}
-				DbgLogInfo((" using BkvArray[%u] w/DXT_CLK_24\n", dwDXT_BKV_config));
+				DbgLogWarn((" using BkvArray[%u] w/DXT_CLK_24\n", dwDXT_BKV_config));
 
 				memcpy(&gInitParam.bkvConfig, BkvArray[dwDXT_BKV_config], sizeof(MCHIP_DRAM_BKV));
 				boardInfo.dxt_clk = DXT_CLK_24;
@@ -1041,8 +1040,7 @@ void CHapi::HapiFWDownload()
 		// [vx_host_slave] 
 		// Load Address = 0x80010000
 		// Entry Point Address = 0x80010000
-//		gFirmwareFile.mipsFileName  = "mips_vx_host_slave.bin";
-	        gFirmwareFile.mipsFileName  = "/opt/Hauppauge/firmware/mips_vx_host_slave.bin";
+		gFirmwareFile.mipsFileName  = "mips_vx_host_slave.bin";
 //		gFirmwareFile.mipsFileName  = "\\systemroot\\system32\\drivers\\mips_vx_host_slave.bin";
 //		gFirmwareFile.mipsFileName  = "\\systemroot\\system32\\drivers\\HcwE5CPU_MIPS.bin";
 		gFirmwareFile.mipsBaseAddr  = 0x80010000;
@@ -1054,31 +1052,26 @@ void CHapi::HapiFWDownload()
 		// Entry Point Address = 0x00c05000
 
 //FGR - BUGBUG needs to use Plankton FW for transcode; llama for encode!!
-//		gFirmwareFile.sparcFileName  = "llama_usb_vx_host_slave_t22_24.bin";
-		gFirmwareFile.sparcFileName  = "/opt/Hauppauge/firmware/llama_usb_vx_host_slave_t22_24.bin";
+		gFirmwareFile.sparcFileName  = "llama_usb_vx_host_slave_t22_24.bin";
 #if 0
 		if(gBoard_bus != plankton){
 			if( boardInfo.dxt_clk != DXT_CLK_24){
-//				gFirmwareFile.sparcFileName = "llama_usb_vx_host_slave_t22_48.bin";
-				gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/llama_usb_vx_host_slave_t22_48.bin";
+				gFirmwareFile.sparcFileName = "llama_usb_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\llama_usb_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5ENC_t22_48.bin";
 			}
 			{
-//				gFirmwareFile.sparcFileName = "llama_usb_vx_host_slave_t22_24.bin";
-			        gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/llama_usb_vx_host_slave_t22_24.bin";
+				gFirmwareFile.sparcFileName = "llama_usb_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\llama_usb_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5ENC_t22_24.bin";
 			}
 		} else {
 			if( boardInfo.dxt_clk != DXT_CLK_24){ //FGR - BUGBUG - these FWs are the same, except for build time
-//				gFirmwareFile.sparcFileName = "plankton_vx_host_slave_t22_48.bin";
-				gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/plankton_vx_host_slave_t22_48.bin";
+				gFirmwareFile.sparcFileName = "plankton_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\plankton_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5XC_t22_48.bin";
 			} else {
-//				gFirmwareFile.sparcFileName = "plankton_vx_host_slave_t22_24.bin";
-				gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/plankton_vx_host_slave_t22_24.bin";
+				gFirmwareFile.sparcFileName = "plankton_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\plankton_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5XC_t22_24.bin";
 			}
@@ -1596,7 +1589,7 @@ void CHapi::set_param(HAPI_SET_PARAM *pParam, const char* param_name, Uint32 val
 	Parameter_Map_Item *p_map = NULL;
 	Uint32 currentType = pParam->ParamType;
 
-#if 0//DBG
+#if 1//DBG
 	char param_dummy[64];
 	param_dummy[0] = '-'; //reduce spew for unset overrides
 	strcpy(&param_dummy[1], param_name);
@@ -1605,17 +1598,6 @@ void CHapi::set_param(HAPI_SET_PARAM *pParam, const char* param_name, Uint32 val
 		DbgLogInfo(("set_param(%p, %s, %u) IGNORED due to registry setting\n", pParam, param_name, value, currentType));
 		return;
 	}
-#else
-        // Use registered settings if they exist.
-        Uint32 reg_value;
-        if (hcwGetRegistryDWORD(param_name, (LPDWORD)&reg_value))
-        {
-            if (value != reg_value)
-            {
-                DbgLogInfo(("set_param(%p, %s, %u) override by registry %u\n", pParam, param_name, value, reg_value));
-                value = reg_value;
-            }
-        }
 #endif
 
     //Special case, since we need a valid ParamType to establish which table to use
