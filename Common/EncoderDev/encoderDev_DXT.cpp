@@ -6,6 +6,7 @@
 #include "CHapi.h"
 #include "Hapi_extra.h"
 
+#include <string.h>
 #include <math.h>
 
 encoderDev_DXT_t::~encoderDev_DXT_t(){
