@@ -1,6 +1,8 @@
 #ifndef __AVOUTPUT_H_
 #define __AVOUTPUT_H_
 
+#include <functional>
+
 #include <stdint.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -11,12 +13,17 @@
 //Stub yet
 
 class DataTransfer {
-protected:
+ public:
+	using callback_t = std::function<void(void*, size_t)>;
+
+ protected:
 	int m_fd;
 	bool m_own_fd;
+	callback_t m_cb;
+	bool m_use_cb;
 
-public:
-	DataTransfer(): m_fd(-1), m_own_fd(false) {}
+ public:
+        DataTransfer(): m_fd(-1), m_own_fd(false), m_use_cb(false) {}
 	~DataTransfer() {
 		if(m_fd > 0) ::close(m_fd);
 	}
@@ -34,7 +41,10 @@ public:
 		m_fd = fd;
 	}
 
+	void setCB(callback_t & cb) { m_cb = cb; m_use_cb = true; }
+
 	void write(void *data, size_t len) {
+	        if(m_use_cb) m_cb(data, len);
 		if(m_fd < 0) return;
 		::write(m_fd, data, len);
 	}

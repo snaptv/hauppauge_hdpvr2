@@ -32,6 +32,10 @@ public:
 		m_dt.setFD(fd);
 	}
 
+	void setWriteCallback(DataTransfer::callback_t & cb) {
+	        m_dt.setCB(cb);
+	}
+
 	virtual bool init() = 0;
 	virtual bool showInfo() = 0;
 	virtual bool startCapture() = 0;
