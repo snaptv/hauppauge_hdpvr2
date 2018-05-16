@@ -919,7 +919,7 @@ void CHapi::HapiAPIInit()
 				if(dwDXT_BKV_config >= BkvCount){
 					dwDXT_BKV_config = 0;
 				}
-				DbgLogWarn((" using BkvArray[%u] w/DXT_CLK_24\n", dwDXT_BKV_config));
+				DbgLogInfo((" using BkvArray[%u] w/DXT_CLK_24\n", dwDXT_BKV_config));
 
 				memcpy(&gInitParam.bkvConfig, BkvArray[dwDXT_BKV_config], sizeof(MCHIP_DRAM_BKV));
 				boardInfo.dxt_clk = DXT_CLK_24;
@@ -1604,8 +1604,11 @@ void CHapi::set_param(HAPI_SET_PARAM *pParam, const char* param_name, Uint32 val
         Uint32 reg_value;
         if (hcwGetRegistryDWORD(param_name, (LPDWORD)&reg_value))
         {
-            DbgLogInfo(("set_param(%p, %s, %u) override by registry %u\n", pParam, param_name, value, reg_value));
-            value = reg_value;
+            if (value != reg_value)
+            {
+                DbgLogInfo(("set_param(%p, %s, %u) override by registry %u\n", pParam, param_name, value, reg_value));
+                value = reg_value;
+            }
         }
 #endif
 
