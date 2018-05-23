@@ -23,6 +23,7 @@ protected:
 	bool _setEDID();
 	bool _showInfoHDMI();
 	bool _showInfoSDP();
+	bool _enableColorMode();
 	bool _showInfoCP();
 
 public:

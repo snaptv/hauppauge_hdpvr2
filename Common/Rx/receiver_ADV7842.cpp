@@ -566,6 +566,7 @@ bool receiver_ADV7842_t::_initCVBS() {
 //	HAL_I2CWriteByte(RX_I2C_AFE_DPLL_MAP_ADDR, 0x0c, 0x1f); /* ADC Range improvement */
 //	HAL_I2CWriteByte(RX_I2C_AFE_DPLL_MAP_ADDR, 0x12, 0x63); /* ADC Range improvement */
 
+	_enableColorMode();
 	_setOutputBusMode();
 
 	_isInit = true;
@@ -674,6 +675,12 @@ bool receiver_ADV7842_t::_showInfoSDP() {
 	wrapLogDebug("SDP 0x58: 0x%02X", data);
 	HAL_I2CReadByte(RX_I2C_SDP_MAP_ADDR, 0x59, &data);
 	wrapLogDebug("SDP 0x59: 0x%02X", data);
+	return true;
+}
+
+bool receiver_ADV7842_t::_enableColorMode() {
+	// Enable PAL (0x01) in addition to NTSC (0x02)
+	HAL_I2CWriteByte(RX_I2C_SDP_MAP_ADDR, 0x00, 0x03);
 	return true;
 }
 
