@@ -1042,7 +1042,7 @@ void CHapi::HapiFWDownload()
 		// Load Address = 0x80010000
 		// Entry Point Address = 0x80010000
 //		gFirmwareFile.mipsFileName  = "mips_vx_host_slave.bin";
-	        gFirmwareFile.mipsFileName  = "/opt/Hauppauge/firmware/mips_vx_host_slave.bin";
+	        gFirmwareFile.mipsFileName  = "/lib/firmware/Hauppauge/mips_vx_host_slave.bin";
 //		gFirmwareFile.mipsFileName  = "\\systemroot\\system32\\drivers\\mips_vx_host_slave.bin";
 //		gFirmwareFile.mipsFileName  = "\\systemroot\\system32\\drivers\\HcwE5CPU_MIPS.bin";
 		gFirmwareFile.mipsBaseAddr  = 0x80010000;
@@ -1055,30 +1055,30 @@ void CHapi::HapiFWDownload()
 
 //FGR - BUGBUG needs to use Plankton FW for transcode; llama for encode!!
 //		gFirmwareFile.sparcFileName  = "llama_usb_vx_host_slave_t22_24.bin";
-		gFirmwareFile.sparcFileName  = "/opt/Hauppauge/firmware/llama_usb_vx_host_slave_t22_24.bin";
+		gFirmwareFile.sparcFileName  = "/lib/firmware/Hauppauge/llama_usb_vx_host_slave_t22_24.bin";
 #if 0
 		if(gBoard_bus != plankton){
 			if( boardInfo.dxt_clk != DXT_CLK_24){
 //				gFirmwareFile.sparcFileName = "llama_usb_vx_host_slave_t22_48.bin";
-				gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/llama_usb_vx_host_slave_t22_48.bin";
+				gFirmwareFile.sparcFileName = "/lib/firmware/Hauppauge/llama_usb_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\llama_usb_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5ENC_t22_48.bin";
 			}
 			{
 //				gFirmwareFile.sparcFileName = "llama_usb_vx_host_slave_t22_24.bin";
-			        gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/llama_usb_vx_host_slave_t22_24.bin";
+			        gFirmwareFile.sparcFileName = "/lib/firmware/Hauppauge/llama_usb_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\llama_usb_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5ENC_t22_24.bin";
 			}
 		} else {
 			if( boardInfo.dxt_clk != DXT_CLK_24){ //FGR - BUGBUG - these FWs are the same, except for build time
 //				gFirmwareFile.sparcFileName = "plankton_vx_host_slave_t22_48.bin";
-				gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/plankton_vx_host_slave_t22_48.bin";
+				gFirmwareFile.sparcFileName = "/lib/firmware/Hauppauge/plankton_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\plankton_vx_host_slave_t22_48.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5XC_t22_48.bin";
 			} else {
 //				gFirmwareFile.sparcFileName = "plankton_vx_host_slave_t22_24.bin";
-				gFirmwareFile.sparcFileName = "/opt/Hauppauge/firmware/plankton_vx_host_slave_t22_24.bin";
+				gFirmwareFile.sparcFileName = "/lib/firmware/Hauppauge/plankton_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\plankton_vx_host_slave_t22_24.bin";
 //				gFirmwareFile.sparcFileName = "\\systemroot\\system32\\drivers\\HcwE5XC_t22_24.bin";
 			}
